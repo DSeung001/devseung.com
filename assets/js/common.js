@@ -16,13 +16,30 @@
     return fallback[key] || key;
   }
 
+  function getStoredLang() {
+    try {
+      return window.localStorage.getItem("devseung.lang");
+    } catch (error) {
+      console.warn("localStorage is unavailable when reading language:", error);
+      return null;
+    }
+  }
+
+  function setStoredLang(lang) {
+    try {
+      window.localStorage.setItem("devseung.lang", lang);
+    } catch (error) {
+      console.warn("localStorage is unavailable when writing language:", error);
+    }
+  }
+
   function detectLang() {
     var queryLang = new URL(window.location.href).searchParams.get("lang");
     if (queryLang && SUPPORTED_LANGS.indexOf(queryLang) >= 0) {
       return queryLang;
     }
 
-    var storedLang = window.localStorage.getItem("devseung.lang");
+    var storedLang = getStoredLang();
     if (storedLang && SUPPORTED_LANGS.indexOf(storedLang) >= 0) {
       return storedLang;
     }
@@ -61,9 +78,16 @@
     document.querySelectorAll(".js-lang-link").forEach(function (el) {
       var href = el.getAttribute("href");
       if (!href) return;
-      var url = new URL(href, window.location.origin);
-      url.searchParams.set("lang", lang);
-      el.setAttribute("href", url.pathname + url.search);
+      try {
+        var url = new URL(href, window.location.href);
+        if (url.origin !== window.location.origin) {
+          return;
+        }
+        url.searchParams.set("lang", lang);
+        el.setAttribute("href", url.pathname + url.search + url.hash);
+      } catch (error) {
+        console.warn("Skipping invalid navigation URL:", href, error);
+      }
     });
   }
 
@@ -95,7 +119,7 @@
     selector.value = lang;
     selector.addEventListener("change", function () {
       var next = selector.value;
-      window.localStorage.setItem("devseung.lang", next);
+      setStoredLang(next);
       var url = new URL(window.location.href);
       url.searchParams.set("lang", next);
       window.location.assign(url.toString());
@@ -104,7 +128,7 @@
 
   function setup() {
     var lang = detectLang();
-    window.localStorage.setItem("devseung.lang", lang);
+    setStoredLang(lang);
     document.documentElement.setAttribute("lang", lang);
     applyText(lang);
     updateLangInLinks(lang);
