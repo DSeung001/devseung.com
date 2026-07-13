@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="meta.home.title">DevSeung | 웹 서비스 포털</title>
+    <meta name="description" data-i18n-content="meta.home.description" content="직접 개발하고 운영하는 웹 서비스를 소개합니다." />
+    <link rel="canonical" href="https://devseung.com/" />
+    <link rel="alternate" hreflang="ko" href="https://devseung.com/?lang=ko" />
+    <link rel="alternate" hreflang="en" href="https://devseung.com/?lang=en" />
+    <link rel="alternate" hreflang="ja" href="https://devseung.com/?lang=ja" />
+    <link rel="alternate" hreflang="zh-CN" href="https://devseung.com/?lang=zh-CN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" data-i18n-content="meta.home.title" content="DevSeung | 웹 서비스 포털" />
+    <meta property="og:description" data-i18n-content="meta.home.description" content="직접 개발하고 운영하는 웹 서비스를 소개합니다." />
+    <meta property="og:url" content="https://devseung.com/" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="stylesheet" href="/assets/css/system.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script defer src="/assets/js/i18n.js"></script>
+    <script defer src="/assets/js/common.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand js-lang-link" href="/" data-i18n="site.name">DevSeung</a>
+        <nav aria-label="Main">
+          <ul class="nav-list">
+            <li><a class="js-lang-link" href="/" data-i18n="nav.home">Home</a></li>
+            <li><a class="js-lang-link" href="/about/" data-i18n="nav.about">About</a></li>
+            <li><a class="js-lang-link" href="/projects/" data-i18n="nav.projects">Projects</a></li>
+            <li><a class="js-lang-link" href="/faq/" data-i18n="nav.faq">FAQ</a></li>
+            <li><a class="js-lang-link" href="/privacy/" data-i18n="nav.privacy">Privacy</a></li>
+            <li><a class="js-lang-link" href="/terms/" data-i18n="nav.terms">Terms</a></li>
+            <li><a class="js-lang-link" href="/contact/" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </nav>
+        <select id="lang-switcher" class="lang-select" aria-label="Language selector" data-i18n-aria-label="common.langSelector">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="zh-CN">简体中文</option>
+        </select>
+      </div>
+    </header>
+
+    <main>
+      <div class="container stack">
+        <section class="hero">
+          <h1 data-i18n="home.hero.title">DevSeung</h1>
+          <p data-i18n="home.hero.subtitle">직접 개발하고 운영하는 웹 서비스를 소개합니다.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary js-lang-link" href="/projects/" data-i18n="home.hero.ctaProjects">서비스 보기</a>
+            <a class="btn js-lang-link" href="/about/" data-i18n="home.hero.ctaAbout">운영자 정보</a>
+            <a class="btn btn-secondary" href="https://github.com/DSeung001" target="_blank" rel="noopener noreferrer" data-i18n="home.hero.ctaGithub">GitHub 방문</a>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="page-title" data-i18n="home.services.title">주요 서비스</h2>
+          <div class="grid">
+            <article class="window-card">
+              <div class="window-head" data-i18n="home.date.title">Date Invite</div>
+              <div class="window-body stack-sm">
+                <p data-i18n="home.date.desc">초대장을 만들고 공유 링크로 전달할 수 있는 서버리스 웹 도구</p>
+                <a class="btn js-lang-link" href="/projects/date-invite/" data-i18n="common.viewDetail">상세 보기</a>
+                <a class="btn btn-secondary" href="https://date-invite.devseung.com" target="_blank" rel="noopener noreferrer" data-i18n="common.viewService">서비스 방문</a>
+              </div>
+            </article>
+            <article class="window-card">
+              <div class="window-head" data-i18n="home.classs.title">CLASS S</div>
+              <div class="window-body stack-sm">
+                <p data-i18n="home.classs.desc">선생님과 학습자를 위한 온라인 강의 및 커리큘럼 관리 플랫폼</p>
+                <a class="btn js-lang-link" href="/projects/class-s/" data-i18n="common.viewDetail">상세 보기</a>
+                <a class="btn btn-secondary" href="https://class.devseung.com" target="_blank" rel="noopener noreferrer" data-i18n="common.viewService">서비스 방문</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="window-card">
+          <div class="window-head" data-i18n="home.features.title">사이트 특징</div>
+          <div class="window-body">
+            <ul class="list-clean">
+              <li data-i18n="home.features.1">직접 개발하고 운영하는 서비스</li>
+              <li data-i18n="home.features.2">서로 다른 목적을 가진 독립 프로젝트</li>
+              <li data-i18n="home.features.3">서비스별 상세 페이지 제공</li>
+              <li data-i18n="home.features.4">한국어, 영어, 일본어, 중국어 간체 지원</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p data-i18n="footer.rights">© DevSeung. 직접 개발하고 운영하는 웹 서비스 포털</p>
+        <p class="muted" data-i18n="footer.legal">개인정보처리방침, 이용약관 및 문의 정보는 본 사이트에 적용됩니다.</p>
+        <div class="links">
+          <a class="js-lang-link" href="/privacy/" data-i18n="nav.privacy">Privacy</a>
+          <a class="js-lang-link" href="/terms/" data-i18n="nav.terms">Terms</a>
+          <a class="js-lang-link" href="/contact/" data-i18n="nav.contact">Contact</a>
+          <a href="https://github.com/DSeung001" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
