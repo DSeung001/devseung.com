@@ -457,35 +457,79 @@ hr {
   }
 }
 
-/* —— Intro career (Text RPG) —— */
+/* —— Intro career (Text RPG / CRT) —— */
 .career-window {
   margin: 1rem 0 0;
   max-width: 100%;
   width: 100%;
-  border: 1.5px solid #000;
-  background: #000;
   box-sizing: border-box;
 }
 
+.career-board[hidden],
+.career-boot[hidden],
+.career-choice[hidden],
+.career-log-split[hidden],
+.career-end-modal[hidden] {
+  display: none !important;
+}
+
 .career-stage {
+  --career-boot-ms: 1.2s;
   position: relative;
-  min-height: 280px;
-  height: 320px;
-  padding: 0.75rem 1rem 1rem;
+  width: 100%;
+  max-width: 100%;
+  max-height: 70vh;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  margin: 0 auto;
+  padding: 0.85rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   background: #000;
   overflow: hidden;
   font-family: Chicago, "NeoDunggeunmo", monospace;
-  font-size: 1em;
-  line-height: 1.45;
+  font-size: 0.85em;
+  line-height: 1.4;
   box-sizing: border-box;
+  /* CRT bezel */
+  border: 10px solid #111;
+  box-shadow:
+    inset 0 0 0 2px #000,
+    inset 0 0 28px rgba(0, 0, 0, 0.55),
+    inset 0 0 80px rgba(0, 0, 0, 0.25),
+    3px 3px 0 #000;
+}
+
+.career-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.45);
+  border-radius: 2px;
+}
+
+/* scanlines */
+.career-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0, 0, 0, 0.14) 2px,
+    rgba(0, 0, 0, 0.14) 3px
+  );
+  opacity: 0.55;
 }
 
 .career-stage.is-playing,
 .career-stage.is-done {
-  background: #fff;
+  background: #f4f4f4;
 }
 
 .career-stage.is-booting {
@@ -504,6 +548,7 @@ hr {
   cursor: pointer;
   color: #fff;
   z-index: 2;
+  position: relative;
 }
 
 .career-play:hover,
@@ -520,10 +565,11 @@ hr {
 
 .career-board {
   display: grid;
-  grid-template-columns: minmax(9rem, 32%) 1fr;
+  grid-template-columns: minmax(7.5rem, 30%) 1fr;
   gap: 0;
   flex: 1;
   min-height: 0;
+  height: 100%;
   border: 1.5px solid #000;
   background: #fff;
   position: relative;
@@ -532,11 +578,6 @@ hr {
 
 .career-stage.is-booting .career-board {
   animation: career-board-reveal var(--career-boot-ms, 1.2s) steps(8, end) both;
-}
-
-.career-stage.is-booting .career-controls {
-  opacity: 1;
-  z-index: 4;
 }
 
 @keyframes career-board-reveal {
@@ -565,7 +606,7 @@ hr {
 .career-boot {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 4;
   pointer-events: none;
   background: #000;
   overflow: hidden;
@@ -579,7 +620,6 @@ hr {
   pointer-events: none;
 }
 
-/* 1-bit noise via SVG turbulence */
 .career-boot::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.65 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px 180px;
@@ -589,11 +629,10 @@ hr {
 }
 
 .career-boot::after {
-  background:
-    linear-gradient(
-      transparent 50%,
-      rgba(0, 0, 0, 0.35) 50%
-    );
+  background: linear-gradient(
+    transparent 50%,
+    rgba(0, 0, 0, 0.35) 50%
+  );
   background-size: 100% 4px;
   opacity: 0.5;
   animation: career-boot-flash var(--career-boot-ms, 1.2s) steps(6, end) both;
@@ -671,8 +710,10 @@ hr {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0.65rem;
+  padding: 0.45rem 0.55rem;
   overflow: hidden;
+  font-size: 1em;
+  line-height: 1.4;
 }
 
 .career-status {
@@ -686,10 +727,10 @@ hr {
 }
 
 .career-pane-label {
-  margin: 0 0 0.35em;
+  margin: 0 0 0.3em;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
   flex-shrink: 0;
 }
 
@@ -702,17 +743,21 @@ hr {
   min-height: 0;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-skill {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem;
-  margin: 0.25em 0;
-  padding: 0.05em 0.15em;
-  line-height: 1.45;
+  gap: 0.4rem;
+  margin: 0.2em 0;
+  padding: 0.05em 0.1em;
+  line-height: 1.4;
+}
+
+.career-skill-empty {
+  opacity: 0.55;
 }
 
 .career-skill.is-flash {
@@ -724,7 +769,7 @@ hr {
   flex-shrink: 0;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-log-scroll {
@@ -733,7 +778,7 @@ hr {
   overflow-y: auto;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-log-past .career-line {
@@ -741,7 +786,7 @@ hr {
 }
 
 .career-log-split {
-  margin: 0.45em 0;
+  margin: 0.4em 0;
 }
 
 .career-log-rule {
@@ -755,10 +800,10 @@ hr {
 }
 
 .career-line {
-  margin: 0.3em 0;
+  margin: 0.25em 0;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-levelup {
@@ -774,42 +819,42 @@ hr {
 }
 
 .career-choice {
-  margin-top: 0.45rem;
-  padding: 0.45rem 0.55rem;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.5rem;
   border: 1.5px solid #000;
   pointer-events: none;
   user-select: none;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-choice-prompt {
-  margin: 0 0 0.4em;
+  margin: 0 0 0.35em;
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-choice-options {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
 }
 
 .career-choice-row {
-  margin: 0.15rem 0 !important;
+  margin: 0.1rem 0 !important;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-choice-row label {
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1em;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .career-choice-row.is-chosen {
@@ -822,29 +867,159 @@ hr {
   color: #fff;
 }
 
-.career-controls {
+/* STATUS end dialog (custom, not system.css window) */
+.career-end-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+}
+
+.career-end-dialog {
+  position: relative;
+  width: 72%;
+  max-width: 20rem;
+  max-height: 62%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow:
+    inset 0 0 0 1px #fff,
+    inset 0 0 0 3px #000,
+    3px 3px 0 #000,
+    inset 0 0 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.career-end-dialog::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 3px
+  );
+  opacity: 0.5;
+}
+
+.career-end-dialog-bar {
   flex-shrink: 0;
   position: relative;
+  z-index: 3;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 0.35em 1.75em;
+  border-bottom: 2px solid #000;
+}
+
+.career-end-close {
+  position: absolute;
+  top: 50%;
+  left: 0.35em;
+  z-index: 4;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.career-end-dialog-title {
+  margin: 0;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+}
+
+.career-end-dialog-body {
+  position: relative;
   z-index: 1;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.65rem 0.85rem;
 }
 
-.career-stage.is-playing .career-controls,
-.career-stage.is-done .career-controls {
-  opacity: 1;
+.career-end-skills {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.career-controls .btn {
-  font-size: 1em !important;
+.career-end-skill {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0.35em 0;
+  padding: 0.1em 0.15em;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.career-end-skill-empty {
+  opacity: 0.55;
+}
+
+.career-end-skill-lv {
+  flex-shrink: 0;
+}
+
+.career-end-dialog-actions {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem 0.65rem;
+  border-top: 1.5px solid #000;
+  background: #fff;
+}
+
+.career-end-replay {
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
   line-height: 1.2;
+  padding: 0.25em 0.85em;
+  border: 1.5px solid #000;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #fff;
+}
+
+.career-end-replay:hover,
+.career-end-replay:focus {
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+.career-end-replay:active {
+  background: #000;
+  color: #fff;
+  box-shadow: inset 1px 1px 0 #000;
 }
 
 @media only screen and (max-width: 720px) {
   .career-stage {
-    height: 380px;
+    max-width: 100%;
+    max-height: none;
   }
 
   .career-board {
@@ -854,6 +1029,11 @@ hr {
   .career-status {
     border-right: none;
     border-bottom: 1.5px solid #000;
-    max-height: 7.5rem;
+    max-height: 30%;
+  }
+
+  .career-end-dialog {
+    width: 88%;
+    max-height: 70%;
   }
 }

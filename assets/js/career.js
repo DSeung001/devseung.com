@@ -24,8 +24,21 @@
     return options[0] || null;
   }
 
+  function tierLabel(lv) {
+    if (lv >= 8) return "고급";
+    if (lv >= 4) return "중급";
+    if (lv >= 1) return "초급";
+    return "";
+  }
+
+  function formatLevel(lv) {
+    var tier = tierLabel(lv);
+    return (tier ? tier + " " : "") + "Lv." + lv;
+  }
+
   function CareerPlayer(root, data) {
     this.root = root;
+    this.stage = root.querySelector("[data-career-stage]");
     this.data = data;
     this.tickMs = data.tickMs || 900;
     this.choiceHoldMs = data.choiceHoldMs || 1200;
@@ -43,28 +56,96 @@
     this.splitEl = root.querySelector("[data-career-log-split]");
     this.currentEl = root.querySelector("[data-career-log-current]");
     this.choiceEl = root.querySelector("[data-career-choice]");
-    this.controls = root.querySelector("[data-career-controls]");
-    this.skipBtn = root.querySelector("[data-career-skip]");
     this.replayBtn = root.querySelector("[data-career-replay]");
     this.bootEl = root.querySelector("[data-career-boot]");
+    this.endModal = root.querySelector("[data-career-end-modal]");
+    this.endCloseBtn = root.querySelector("[data-career-end-close]");
+    this.endSkillsEl = root.querySelector("[data-career-end-skills]");
+    this.docsScroll = document.querySelector(".docs-scroll");
 
     this.state = "idle";
     this.index = 0;
     this.levels = {};
     this.timer = null;
     this.skipping = false;
+    this.scrollAnim = null;
 
     var self = this;
     this.playBtn.addEventListener("click", function () {
       self.start();
     });
-    this.skipBtn.addEventListener("click", function () {
-      self.skip();
-    });
-    this.replayBtn.addEventListener("click", function () {
-      self.replay();
-    });
+    if (this.replayBtn) {
+      this.replayBtn.addEventListener("click", function () {
+        self.replay();
+      });
+    }
+    if (this.endCloseBtn) {
+      this.endCloseBtn.addEventListener("click", function () {
+        self.hideEndModal();
+      });
+    }
   }
+
+  CareerPlayer.prototype.setStageClass = function (name) {
+    var el = this.stage || this.root;
+    el.classList.remove("is-booting", "is-playing", "is-done");
+    if (name) {
+      el.classList.add(name);
+    }
+  };
+
+  CareerPlayer.prototype.scrollStageIntoView = function (durationMs) {
+    var stage = this.stage;
+    var scroll = this.docsScroll;
+    if (!stage || !scroll) return;
+
+    var duration = typeof durationMs === "number" ? durationMs : 400;
+    var startTop = scroll.scrollTop;
+    var scrollRect = scroll.getBoundingClientRect();
+    var stageRect = stage.getBoundingClientRect();
+    var delta = 0;
+
+    if (stageRect.top < scrollRect.top) {
+      delta = stageRect.top - scrollRect.top - 8;
+    } else if (stageRect.bottom > scrollRect.bottom) {
+      delta = stageRect.bottom - scrollRect.bottom + 8;
+      if (stageRect.top - delta < scrollRect.top) {
+        delta = stageRect.top - scrollRect.top - 8;
+      }
+    }
+
+    if (Math.abs(delta) < 1) return;
+
+    var targetTop = startTop + delta;
+    var maxTop = scroll.scrollHeight - scroll.clientHeight;
+    if (targetTop < 0) targetTop = 0;
+    if (targetTop > maxTop) targetTop = maxTop;
+
+    if (this.scrollAnim !== null) {
+      cancelAnimationFrame(this.scrollAnim);
+      this.scrollAnim = null;
+    }
+
+    var startTime = null;
+    var self = this;
+
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function frame(now) {
+      if (startTime === null) startTime = now;
+      var t = Math.min(1, (now - startTime) / duration);
+      scroll.scrollTop = startTop + (targetTop - startTop) * easeOutCubic(t);
+      if (t < 1) {
+        self.scrollAnim = requestAnimationFrame(frame);
+      } else {
+        self.scrollAnim = null;
+      }
+    }
+
+    this.scrollAnim = requestAnimationFrame(frame);
+  };
 
   CareerPlayer.prototype.clearTimer = function () {
     if (this.timer !== null) {
@@ -103,9 +184,12 @@
 
   CareerPlayer.prototype.renderStatus = function (flashMap) {
     var html = "";
+    var shown = 0;
     for (var i = 0; i < this.skills.length; i++) {
       var skill = this.skills[i];
       var lv = this.levels[skill.id] || 0;
+      if (lv <= 0) continue;
+      shown += 1;
       var flash = flashMap && flashMap[skill.id] ? " is-flash" : "";
       html +=
         '<li class="career-skill' +
@@ -116,21 +200,56 @@
         '<span class="career-skill-label">' +
         escapeHtml(skill.label) +
         "</span>" +
-        '<span class="career-skill-lv">Lv.' +
-        lv +
+        '<span class="career-skill-lv">' +
+        escapeHtml(formatLevel(lv)) +
         "</span>" +
         "</li>";
+    }
+    if (!shown) {
+      html =
+        '<li class="career-skill career-skill-empty"><span class="career-skill-label">—</span></li>';
     }
     this.skillsEl.innerHTML = html;
   };
 
-  CareerPlayer.prototype.setStatusHeading = function (done) {
-    this.statusLabel.textContent = done ? "종합치" : "STATUS";
-    if (done) {
-      this.statusEl.classList.add("is-final");
-    } else {
-      this.statusEl.classList.remove("is-final");
+  CareerPlayer.prototype.setStatusHeading = function () {
+    this.statusLabel.textContent = "STATUS";
+    this.statusEl.classList.remove("is-final");
+  };
+
+  CareerPlayer.prototype.hideEndModal = function () {
+    if (!this.endModal) return;
+    this.endModal.hidden = true;
+    this.endModal.setAttribute("aria-hidden", "true");
+    if (this.endSkillsEl) this.endSkillsEl.innerHTML = "";
+  };
+
+  CareerPlayer.prototype.showEndModal = function () {
+    if (!this.endModal || !this.endSkillsEl) return;
+    var html = "";
+    var shown = 0;
+    for (var i = 0; i < this.skills.length; i++) {
+      var skill = this.skills[i];
+      var lv = this.levels[skill.id] || 0;
+      if (lv <= 0) continue;
+      shown += 1;
+      html +=
+        '<li class="career-end-skill">' +
+        '<span class="career-end-skill-label">' +
+        escapeHtml(skill.label) +
+        "</span>" +
+        '<span class="career-end-skill-lv">' +
+        escapeHtml(formatLevel(lv)) +
+        "</span>" +
+        "</li>";
     }
+    if (!shown) {
+      html =
+        '<li class="career-end-skill career-end-skill-empty"><span class="career-end-skill-label">—</span></li>';
+    }
+    this.endSkillsEl.innerHTML = html;
+    this.endModal.hidden = false;
+    this.endModal.setAttribute("aria-hidden", "false");
   };
 
   CareerPlayer.prototype.clearLog = function () {
@@ -216,8 +335,8 @@
       this.appendLog(
         "LEVEL UP! " +
           escapeHtml(label) +
-          " Lv." +
-          (typeof g.to === "number" ? g.to : 0),
+          " " +
+          escapeHtml(formatLevel(typeof g.to === "number" ? g.to : 0)),
         "career-levelup"
       );
     }
@@ -285,34 +404,19 @@
     this.clearLog();
     this.hideChoice();
     this.hideBoot();
-    this.setStatusHeading(false);
+    this.hideEndModal();
+    this.setStatusHeading();
     this.renderStatus();
     this.playBtn.hidden = false;
     this.board.hidden = true;
-    this.controls.hidden = true;
-    this.skipBtn.disabled = false;
-    this.root.classList.remove("is-booting", "is-playing", "is-done");
+    this.setStageClass(null);
   };
 
   CareerPlayer.prototype.beginPlayback = function () {
     this.hideBoot();
-    this.root.classList.remove("is-booting");
-    this.root.classList.add("is-playing");
+    this.setStageClass("is-playing");
     this.state = "playing";
     this.step();
-  };
-
-  CareerPlayer.prototype.flushRemaining = function () {
-    this.skipping = true;
-    this.clearTimer();
-    this.hideChoice();
-    this.hideBoot();
-    this.archiveCurrent();
-    while (this.index < this.events.length) {
-      this.applyEventInstant(this.events[this.index]);
-      this.index += 1;
-    }
-    this.finish();
   };
 
   CareerPlayer.prototype.start = function () {
@@ -323,15 +427,16 @@
     this.resetLevels();
     this.clearLog();
     this.hideChoice();
-    this.setStatusHeading(false);
+    this.hideEndModal();
+    this.setStatusHeading();
     this.renderStatus();
     this.playBtn.hidden = true;
     this.board.hidden = false;
-    this.controls.hidden = false;
-    this.skipBtn.disabled = false;
-    this.root.classList.add("is-booting");
-    this.root.classList.remove("is-playing", "is-done");
-    this.root.style.setProperty("--career-boot-ms", this.bootMs + "ms");
+    this.setStageClass("is-booting");
+    if (this.stage) {
+      this.stage.style.setProperty("--career-boot-ms", this.bootMs + "ms");
+    }
+    this.scrollStageIntoView(400);
     this.showBoot();
     this.schedule(this.beginPlayback, this.bootMs);
   };
@@ -344,76 +449,18 @@
     this.hideBoot();
     this.archiveCurrent();
     this.hideSplit();
-    this.setStatusHeading(true);
-    this.skipBtn.disabled = true;
-    this.root.classList.remove("is-booting", "is-playing");
-    this.root.classList.add("is-done");
+    this.setStatusHeading();
+    this.renderStatus();
+    this.setStageClass("is-done");
     this.appendLogPast("— END —", "career-end");
     if (this.logScroll) {
       this.logScroll.scrollTop = this.logScroll.scrollHeight;
     }
+    this.showEndModal();
   };
 
   CareerPlayer.prototype.replay = function () {
     this.setIdle();
-  };
-
-  CareerPlayer.prototype.skip = function () {
-    if (this.state !== "booting" && this.state !== "playing") return;
-    this.flushRemaining();
-  };
-
-  CareerPlayer.prototype.applyEventInstant = function (event) {
-    var type = event.type || "narrate";
-    if (type === "choice") {
-      var opt = findOption(event.options || [], event.chosen);
-      if (event.date || event.text) {
-        this.appendLogPast(
-          (event.date ? "[" + escapeHtml(event.date) + "] " : "") +
-            escapeHtml(event.text || "")
-        );
-      }
-      if (opt) {
-        this.appendLogPast(
-          "> " + escapeHtml(opt.label),
-          "career-choice-pick"
-        );
-        if (opt.result) {
-          this.appendLogPast(escapeHtml(opt.result));
-        }
-        this.applyGains(opt.gains);
-        this.appendLevelUpsPast(opt.gains);
-      }
-      return;
-    }
-
-    this.appendLogPast(
-      (event.date ? "[" + escapeHtml(event.date) + "] " : "") +
-        escapeHtml(event.text || "")
-    );
-    this.applyGains(event.gains);
-    this.appendLevelUpsPast(event.gains);
-  };
-
-  CareerPlayer.prototype.appendLevelUpsPast = function (gains) {
-    if (!gains || !gains.length) return;
-    for (var i = 0; i < gains.length; i++) {
-      var g = gains[i];
-      var label = g.skill;
-      for (var j = 0; j < this.skills.length; j++) {
-        if (this.skills[j].id === g.skill) {
-          label = this.skills[j].label;
-          break;
-        }
-      }
-      this.appendLogPast(
-        "LEVEL UP! " +
-          escapeHtml(label) +
-          " Lv." +
-          (typeof g.to === "number" ? g.to : 0),
-        "career-levelup"
-      );
-    }
   };
 
   CareerPlayer.prototype.step = function () {

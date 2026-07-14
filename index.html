@@ -66,8 +66,8 @@
                 <h2 class="subheading" id="intro-title">Intro</h2>
                 <p>안녕하세요 개발자 지승렬입니다, 컴퓨터 두들기며 살고 있어요.</p>
 
-                <div class="career-window">
-                  <div class="career-stage" data-career-root>
+                <div class="career-window" data-career-root>
+                  <div class="career-stage" data-career-stage>
                     <button
                       type="button"
                       class="career-play"
@@ -121,29 +121,55 @@
                       </div>
                     </div>
 
-                    <div class="career-controls" data-career-controls hidden>
-                      <button
-                        type="button"
-                        class="btn"
-                        data-career-skip
-                      >
-                        건너뛰기
-                      </button>
-                      <button
-                        type="button"
-                        class="btn"
-                        data-career-replay
-                      >
-                        다시보기
-                      </button>
-                    </div>
-
                     <div
                       class="career-boot"
                       data-career-boot
                       hidden
                       aria-hidden="true"
                     ></div>
+
+                    <div
+                      class="career-end-modal"
+                      data-career-end-modal
+                      hidden
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="career-end-dialog"
+                        role="dialog"
+                        aria-labelledby="career-end-title"
+                      >
+                        <div class="career-end-dialog-bar">
+                          <button
+                            type="button"
+                            class="close career-end-close"
+                            data-career-end-close
+                            aria-label="닫기"
+                          ></button>
+                          <p
+                            class="career-end-dialog-title"
+                            id="career-end-title"
+                          >
+                            STATUS
+                          </p>
+                        </div>
+                        <div class="career-end-dialog-body">
+                          <ul
+                            class="career-end-skills"
+                            data-career-end-skills
+                          ></ul>
+                        </div>
+                        <div class="career-end-dialog-actions">
+                          <button
+                            type="button"
+                            class="career-end-replay"
+                            data-career-replay
+                          >
+                            다시보기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
