@@ -1,0 +1,91 @@
+{
+  "tickMs": 900,
+  "choiceHoldMs": 1200,
+  "bootMs": 1200,
+  "skills": [
+    { "id": "backend", "label": "백엔드 개발" },
+    { "id": "encoding", "label": "비동기 인코딩" },
+    { "id": "deploy", "label": "배포" },
+    { "id": "cert", "label": "자격증" }
+  ],
+  "events": [
+    {
+      "type": "choice",
+      "date": "2020.09",
+      "text": "방과후 활동을 하기로 했다. 무엇을 할까?",
+      "chosen": "code",
+      "options": [
+        {
+          "id": "code",
+          "label": "코딩 동아리",
+          "result": "코딩 동아리에 들어갔다.",
+          "gains": [{ "skill": "backend", "to": 1 }]
+        },
+        {
+          "id": "media",
+          "label": "미디어 동아리",
+          "result": "영상 제작에 손을 댔다.",
+          "gains": [{ "skill": "encoding", "to": 1 }]
+        },
+        {
+          "id": "home",
+          "label": "그냥 집에 간다",
+          "result": "오늘은 쉬기로 했다."
+        }
+      ]
+    },
+    {
+      "type": "narrate",
+      "date": "2022.03",
+      "text": "첫 REST API를 혼자 올려 봤다.",
+      "gains": [{ "skill": "backend", "to": 2 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2023.06",
+      "text": "영상 업로드 파이프라인에 HLS 인코딩을 붙였다.",
+      "gains": [{ "skill": "encoding", "to": 2 }]
+    },
+    {
+      "type": "choice",
+      "date": "2024.01",
+      "text": "서비스를 어디에 올릴까?",
+      "chosen": "cloud",
+      "options": [
+        {
+          "id": "cloud",
+          "label": "클라우드에 배포한다",
+          "result": "스테이징·프로덕션 배포 흐름을 잡았다.",
+          "gains": [{ "skill": "deploy", "to": 1 }]
+        },
+        {
+          "id": "local",
+          "label": "로컬에만 둔다",
+          "result": "아직 배포는 미뤄 두었다."
+        },
+        {
+          "id": "paas",
+          "label": "한 번에 PaaS로",
+          "result": "클릭 몇 번으로 올렸지만 운영을 배웠다.",
+          "gains": [{ "skill": "deploy", "to": 1 }]
+        }
+      ]
+    },
+    {
+      "type": "narrate",
+      "date": "2024.08",
+      "text": "정보처리기사 필기를 통과했다.",
+      "gains": [{ "skill": "cert", "to": 1 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2025.02",
+      "text": "CLASS S를 운영하며 백엔드·인코딩·배포를 같이 다뤘다.",
+      "gains": [
+        { "skill": "backend", "to": 3 },
+        { "skill": "encoding", "to": 3 },
+        { "skill": "deploy", "to": 2 }
+      ]
+    }
+  ]
+}

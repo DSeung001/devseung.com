@@ -17,6 +17,7 @@
     />
     <link rel="stylesheet" href="/assets/css/site.css" />
     <script defer src="/assets/js/app.js"></script>
+    <script defer src="/assets/js/career.js"></script>
   </head>
   <body>
     <div class="container">
@@ -63,7 +64,88 @@
                 aria-labelledby="intro-title"
               >
                 <h2 class="subheading" id="intro-title">Intro</h2>
-                <p>포트폴리오 정리 + PR 용 사이트입니다.</p>
+                <p>안녕하세요 개발자 지승렬입니다, 컴퓨터 두들기며 살고 있어요.</p>
+
+                <div class="career-window">
+                  <div class="career-stage" data-career-root>
+                    <button
+                      type="button"
+                      class="career-play"
+                      data-career-play
+                      aria-label="이력 재생"
+                    >
+                      ▶
+                    </button>
+
+                    <div class="career-board" data-career-board hidden>
+                      <aside
+                        class="career-status"
+                        data-career-status
+                        aria-label="현재 스테이터스"
+                      >
+                        <p class="career-pane-label" data-career-status-label>
+                          STATUS
+                        </p>
+                        <ul class="career-skill-list" data-career-skills></ul>
+                      </aside>
+                      <div class="career-log-pane">
+                        <p class="career-pane-label">LOG</p>
+                        <div
+                          class="career-log-scroll"
+                          data-career-log-scroll
+                        >
+                          <div
+                            class="career-log-past"
+                            data-career-log-past
+                          ></div>
+                          <div
+                            class="career-log-split"
+                            data-career-log-split
+                            hidden
+                            aria-hidden="true"
+                          >
+                            <hr class="career-log-rule" />
+                          </div>
+                          <div
+                            class="career-log-current"
+                            data-career-log-current
+                            aria-live="polite"
+                          ></div>
+                          <div
+                            class="career-choice"
+                            data-career-choice
+                            hidden
+                            aria-hidden="true"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="career-controls" data-career-controls hidden>
+                      <button
+                        type="button"
+                        class="btn"
+                        data-career-skip
+                      >
+                        건너뛰기
+                      </button>
+                      <button
+                        type="button"
+                        class="btn"
+                        data-career-replay
+                      >
+                        다시보기
+                      </button>
+                    </div>
+
+                    <div
+                      class="career-boot"
+                      data-career-boot
+                      hidden
+                      aria-hidden="true"
+                    ></div>
+                  </div>
+                </div>
               </section>
 
               <section

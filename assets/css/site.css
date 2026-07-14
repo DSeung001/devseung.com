@@ -456,3 +456,404 @@ hr {
     min-height: 0;
   }
 }
+
+/* —— Intro career (Text RPG) —— */
+.career-window {
+  margin: 1rem 0 0;
+  max-width: 100%;
+  width: 100%;
+  border: 1.5px solid #000;
+  background: #000;
+  box-sizing: border-box;
+}
+
+.career-stage {
+  position: relative;
+  min-height: 280px;
+  height: 320px;
+  padding: 0.75rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #000;
+  overflow: hidden;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+  box-sizing: border-box;
+}
+
+.career-stage.is-playing,
+.career-stage.is-done {
+  background: #fff;
+}
+
+.career-stage.is-booting {
+  background: #000;
+}
+
+.career-play {
+  margin: auto;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 2px solid #fff;
+  background: #000;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #fff;
+  z-index: 2;
+}
+
+.career-play:hover,
+.career-play:focus {
+  background: #fff;
+  color: #000;
+  outline: none;
+}
+
+.career-play:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.career-board {
+  display: grid;
+  grid-template-columns: minmax(9rem, 32%) 1fr;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+  border: 1.5px solid #000;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.career-stage.is-booting .career-board {
+  animation: career-board-reveal var(--career-boot-ms, 1.2s) steps(8, end) both;
+}
+
+.career-stage.is-booting .career-controls {
+  opacity: 1;
+  z-index: 4;
+}
+
+@keyframes career-board-reveal {
+  0% {
+    opacity: 0;
+    filter: contrast(4) brightness(0.2);
+  }
+  20% {
+    opacity: 0.35;
+    filter: contrast(6) brightness(0.5);
+  }
+  45% {
+    opacity: 0.55;
+    filter: contrast(3) brightness(0.85);
+  }
+  70% {
+    opacity: 0.85;
+    filter: contrast(2) brightness(1.1);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+.career-boot {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #000;
+  overflow: hidden;
+}
+
+.career-boot::before,
+.career-boot::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+
+/* 1-bit noise via SVG turbulence */
+.career-boot::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.65 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  animation: career-noise-shift 0.18s steps(2, end) infinite;
+}
+
+.career-boot::after {
+  background:
+    linear-gradient(
+      transparent 50%,
+      rgba(0, 0, 0, 0.35) 50%
+    );
+  background-size: 100% 4px;
+  opacity: 0.5;
+  animation: career-boot-flash var(--career-boot-ms, 1.2s) steps(6, end) both;
+}
+
+.career-stage.is-booting .career-boot {
+  animation: career-boot-fade var(--career-boot-ms, 1.2s) steps(8, end) both;
+}
+
+@keyframes career-noise-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-3%, 2%);
+  }
+  100% {
+    transform: translate(2%, -2%);
+  }
+}
+
+@keyframes career-boot-flash {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  15% {
+    opacity: 0.15;
+    background-color: #fff;
+  }
+  35% {
+    opacity: 0.7;
+  }
+  55% {
+    opacity: 0.2;
+    background-color: #fff;
+  }
+  80% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes career-boot-fade {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .career-stage.is-booting .career-board,
+  .career-boot::before,
+  .career-boot::after,
+  .career-stage.is-booting .career-boot {
+    animation: none !important;
+  }
+
+  .career-stage.is-booting .career-board {
+    opacity: 1;
+    filter: none;
+  }
+
+  .career-boot {
+    opacity: 0;
+  }
+}
+
+.career-status,
+.career-log-pane {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.65rem;
+  overflow: hidden;
+}
+
+.career-status {
+  border-right: 1.5px solid #000;
+}
+
+.career-status.is-final .career-pane-label {
+  background: #000;
+  color: #fff;
+  padding: 0 0.25em;
+}
+
+.career-pane-label {
+  margin: 0 0 0.35em;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+  flex-shrink: 0;
+}
+
+.career-skill-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-skill {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0.25em 0;
+  padding: 0.05em 0.15em;
+  line-height: 1.45;
+}
+
+.career-skill.is-flash {
+  background: #000;
+  color: #fff;
+}
+
+.career-skill-lv {
+  flex-shrink: 0;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-log-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-log-past .career-line {
+  opacity: 0.7;
+}
+
+.career-log-split {
+  margin: 0.45em 0;
+}
+
+.career-log-rule {
+  border: none;
+  border-top: 1.5px solid #000;
+  margin: 0;
+}
+
+.career-log-current .career-line {
+  opacity: 1;
+}
+
+.career-line {
+  margin: 0.3em 0;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-levelup {
+  font-weight: bold;
+}
+
+.career-choice-pick {
+  font-weight: bold;
+}
+
+.career-end {
+  opacity: 0.75;
+}
+
+.career-choice {
+  margin-top: 0.45rem;
+  padding: 0.45rem 0.55rem;
+  border: 1.5px solid #000;
+  pointer-events: none;
+  user-select: none;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-choice-prompt {
+  margin: 0 0 0.4em;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-choice-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.career-choice-row {
+  margin: 0.15rem 0 !important;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-choice-row label {
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.45;
+}
+
+.career-choice-row.is-chosen {
+  background: #000;
+  color: #fff;
+  padding: 0.1em 0.25em;
+}
+
+.career-choice-row.is-chosen label {
+  color: #fff;
+}
+
+.career-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.career-stage.is-playing .career-controls,
+.career-stage.is-done .career-controls {
+  opacity: 1;
+}
+
+.career-controls .btn {
+  font-size: 1em !important;
+  line-height: 1.2;
+}
+
+@media only screen and (max-width: 720px) {
+  .career-stage {
+    height: 380px;
+  }
+
+  .career-board {
+    grid-template-columns: 1fr;
+  }
+
+  .career-status {
+    border-right: none;
+    border-bottom: 1.5px solid #000;
+    max-height: 7.5rem;
+  }
+}
