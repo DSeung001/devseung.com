@@ -931,7 +931,8 @@ hr {
 .career-end-close {
   position: absolute;
   top: 50%;
-  left: 0.35em;
+  right: 0.35em;
+  left: auto;
   z-index: 4;
   transform: translateY(-50%);
   cursor: pointer;
