@@ -1,6 +1,6 @@
 # DevSeung
 
-직접 개발하고 운영하는 웹 서비스 포털 ([devseung.com](https://devseung.com/)).
+([devseung.com](https://devseung.com/))
 
 - Classic Mac OS 스타일은 [system.css](https://github.com/sakofchit/system.css)
 - 영문은 Chicago/Geneva, 한글은 [Neo둥근모](https://neodgm.dalgona.dev/)

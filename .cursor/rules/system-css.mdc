@@ -12,7 +12,10 @@ alwaysApply: true
   - 모던 본문 폰트(Inter, Noto, system-ui 등) 금지
   - 전역을 Neo둥근모만으로 덮어쓰지 말 것 (영문 Mac 톤이 깨짐)
 - 언어: 한국어만
-- 레이아웃: 단일 `index.html` + 해시(`#intro` / `#sites` / `#inquiry`) → 좌측 내비, 우측 패널 하나만 표시
+- 타이포: html 18px Chicago 본문(1em). Geneva_9는 본문에 쓰지 않음. 한글 폴백 NeoDunggeunmo
+- 레이아웃: 뷰포트 가운데 — Docs 사이드바 + `.docs-dialog` 동일 고정 높이, `.docs-scroll` 내부 스크롤
+- 해시(`#intro` / `#sites` / `#inquiry`)로 패널만 전환
+- 브랜드 서브문구: `devseung.com`
 
 ## 컴포넌트
 
