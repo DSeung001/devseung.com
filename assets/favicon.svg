@@ -1,12 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
   <rect width="32" height="32" fill="#ffffff"/>
-  <!-- Retro pixel D (thicker) -->
+  <!-- Clear pixel D -->
   <g fill="#000000">
-    <rect x="6" y="4" width="5" height="24"/>
-    <rect x="11" y="4" width="11" height="5"/>
-    <rect x="11" y="23" width="11" height="5"/>
-    <rect x="19" y="9" width="4" height="4"/>
-    <rect x="21" y="13" width="5" height="6"/>
-    <rect x="19" y="19" width="4" height="4"/>
+    <!-- left stem -->
+    <rect x="6" y="4" width="6" height="24"/>
+    <!-- top bar -->
+    <rect x="12" y="4" width="10" height="5"/>
+    <!-- bottom bar -->
+    <rect x="12" y="23" width="10" height="5"/>
+    <!-- right bowl -->
+    <rect x="20" y="7" width="4" height="3"/>
+    <rect x="22" y="9" width="4" height="4"/>
+    <rect x="24" y="12" width="4" height="8"/>
+    <rect x="22" y="19" width="4" height="4"/>
+    <rect x="20" y="22" width="4" height="3"/>
   </g>
 </svg>
