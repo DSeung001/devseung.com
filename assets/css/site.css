@@ -68,6 +68,11 @@ p,
   font-weight: normal;
 }
 
+.docs-header .heading {
+  font-size: 3rem;
+  margin: 0.25em 0;
+}
+
 .desc {
   font-family: Chicago, "NeoDunggeunmo", monospace;
   font-size: 1.25em;
@@ -111,16 +116,16 @@ a {
   align-items: stretch;
   gap: 12px;
   width: 100%;
-  max-width: 56rem;
+  max-width: 72rem;
   height: calc(100vh - 36px);
   max-height: calc(100vh - 36px);
 }
 
 /* —— Sidebar window —— */
 aside.window.sidebar {
-  width: 200px;
-  min-width: 200px !important;
-  max-width: 200px;
+  width: 240px;
+  min-width: 240px !important;
+  max-width: 240px;
   height: 100% !important;
   margin: 0 !important;
   display: flex;
@@ -133,7 +138,7 @@ aside.window.sidebar .window-pane {
   flex: 1;
   min-height: 0;
   font-size: 1em;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.1rem;
   letter-spacing: -0.025em;
 }
 
@@ -216,16 +221,108 @@ aside.window.sidebar .window-pane {
 }
 
 .panel-stack {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-top: 1rem;
+  align-items: start;
+}
+
+@media only screen and (max-width: 720px) {
+  .panel-stack {
+    grid-template-columns: 1fr;
+  }
 }
 
 .site-window {
   margin: 0 !important;
   max-width: 100%;
   min-width: 0 !important;
+}
+
+.inquiry-window {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* Hide non-functional title-bar chrome (looks like stray checkboxes) */
+.title-bar button.close,
+.title-bar button.resize,
+.title-bar button.hidden {
+  display: none !important;
+}
+
+.title-bar button.close::before,
+.title-bar button.close::after,
+.title-bar button.resize::before,
+.title-bar button.resize::after,
+a.btn::before,
+a.btn::after,
+button.btn::before,
+button.btn::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+/* —— Buttons: lock size/font on press —— */
+a.btn,
+button.btn,
+a.btn-default,
+button.btn-default {
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 1em !important;
+  line-height: 1.2;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  vertical-align: middle;
+}
+
+a.btn:active,
+button.btn:active,
+a.btn-default:active,
+button.btn-default:active,
+a.btn:focus,
+button.btn:focus {
+  font-size: 1em !important;
+  line-height: 1.2;
+  min-height: 20px;
+  padding: 0 20px;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+}
+
+/* —— Sites details toggle —— */
+.site-details {
+  margin: 0.5em 0 0.75em;
+  font-size: 1em;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+}
+
+.site-details summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  font-size: 1em;
+  line-height: 1.3;
+  user-select: none;
+}
+
+.site-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.site-details summary::before {
+  content: "▶ ";
+  font-size: 0.85em;
+}
+
+.site-details[open] summary::before {
+  content: "▼ ";
+}
+
+.site-details .placeholder-note {
+  margin: 0.5em 0 0;
+  padding-left: 0.25em;
 }
 
 .site-window .modeless-dialog {

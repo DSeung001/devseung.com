@@ -63,10 +63,6 @@
                 aria-labelledby="intro-title"
               >
                 <h2 class="subheading" id="intro-title">Intro</h2>
-                <p>
-                  DevSeung은 직접 개발하고 운영하는 웹 서비스를 소개하는
-                  포털입니다.
-                </p>
                 <p class="placeholder-note">소개 내용은 준비 중입니다.</p>
               </section>
 
@@ -89,7 +85,7 @@
                         class="close"
                         type="button"
                       ></button>
-                      <h1 class="title">Date Invite</h1>
+                      <h1 class="title">CLASS S</h1>
                       <button
                         aria-label="Resize"
                         disabled
@@ -100,13 +96,16 @@
                     <div class="separator"></div>
                     <div class="modeless-dialog">
                       <p>
-                        초대장을 만들고 공유 링크로 전달할 수 있는 웹 도구
+                        부트캠프 수강생들을 위한 영상 스트리밍 서비스
                       </p>
-                      <p class="placeholder-note">상세 설명 placeholder</p>
+                      <details class="site-details">
+                        <summary>상세 설명</summary>
+                        <p class="placeholder-note">상세 설명 placeholder</p>
+                      </details>
                       <section class="field-row actions-end">
                         <a
                           class="btn"
-                          href="https://date-invite.devseung.com"
+                          href="https://class.devseung.com"
                           target="_blank"
                           rel="noopener noreferrer"
                           >서비스 방문</a
@@ -122,7 +121,7 @@
                         class="close"
                         type="button"
                       ></button>
-                      <h1 class="title">CLASS S</h1>
+                      <h1 class="title">Date Invite</h1>
                       <button
                         aria-label="Resize"
                         disabled
@@ -133,14 +132,16 @@
                     <div class="separator"></div>
                     <div class="modeless-dialog">
                       <p>
-                        선생님과 학습자를 위한 온라인 강의 및 커리큘럼 관리
-                        플랫폼
+                        연인한테 데이트 초대장 보내기
                       </p>
-                      <p class="placeholder-note">상세 설명 placeholder</p>
+                      <details class="site-details">
+                        <summary>상세 설명</summary>
+                        <p class="placeholder-note">상세 설명 placeholder</p>
+                      </details>
                       <section class="field-row actions-end">
                         <a
                           class="btn"
-                          href="https://class.devseung.com"
+                          href="https://date-invite.devseung.com"
                           target="_blank"
                           rel="noopener noreferrer"
                           >서비스 방문</a
@@ -162,7 +163,7 @@
                 <h2 class="subheading" id="inquiry-title">Inquiry</h2>
                 <p>서비스 문의, 제휴 제안, 오류 제보를 받습니다.</p>
 
-                <div class="window site-window" style="max-width: 30rem">
+                <div class="window site-window inquiry-window">
                   <div class="title-bar">
                     <button
                       aria-label="Close"
@@ -189,9 +190,8 @@
                       <input
                         id="inquiry_email"
                         type="email"
-                        placeholder="admin@devseung.com"
-                        readonly
-                        aria-label="문의 이메일"
+                        placeholder="your@email.com"
+                        aria-label="회신 받을 이메일"
                       />
                     </section>
                     <section
@@ -204,17 +204,20 @@
                       <textarea
                         id="inquiry_note"
                         rows="3"
-                        placeholder="문의 내용은 준비 중입니다. GitHub 이슈 또는 이메일을 이용해 주세요."
-                        readonly
+                        placeholder="문의 내용을 적어 주세요."
                       ></textarea>
                     </section>
                     <section class="field-row actions-end">
-                      <a class="btn" href="mailto:admin@devseung.com"
+                      <a
+                        class="btn"
+                        href="mailto:seungryeol156@gmail.com"
+                        data-inquiry="mailto"
                         >이메일</a
                       >
                       <a
                         class="btn btn-default"
                         href="https://github.com/DSeung001/devseung.com/issues/new"
+                        data-inquiry="github"
                         target="_blank"
                         rel="noopener noreferrer"
                         >GitHub 이슈</a
@@ -229,9 +232,15 @@
             <footer class="site-footer">
               <p>© DevSeung</p>
               <div class="links">
-                <a href="/privacy/">Privacy</a>
-                <a href="/terms/">Terms</a>
-                <a href="/CREDITS.md">Credits</a>
+                <a href="/privacy/" target="_blank" rel="noopener noreferrer"
+                  >Privacy</a
+                >
+                <a href="/terms/" target="_blank" rel="noopener noreferrer"
+                  >Terms</a
+                >
+                <a href="/CREDITS.md" target="_blank" rel="noopener noreferrer"
+                  >Credits</a
+                >
                 <a
                   href="https://github.com/DSeung001"
                   target="_blank"
