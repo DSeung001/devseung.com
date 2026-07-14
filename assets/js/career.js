@@ -278,8 +278,18 @@
     }
   };
 
+  CareerPlayer.prototype.appendEventSep = function () {
+    var hr = document.createElement("hr");
+    hr.className = "career-event-sep";
+    hr.setAttribute("aria-hidden", "true");
+    this.pastEl.appendChild(hr);
+  };
+
   CareerPlayer.prototype.beginEventBlock = function () {
     this.archiveCurrent();
+    if (this.pastEl.firstChild) {
+      this.appendEventSep();
+    }
     this.scrollToCurrent();
   };
 
@@ -503,6 +513,10 @@
     var opt = findOption(event.options || [], event.chosen);
 
     this.beginEventBlock();
+    this.appendLog(
+      (event.date ? "[" + escapeHtml(event.date) + "] " : "") +
+        escapeHtml(event.text || "")
+    );
     this.showChoice(event, null);
 
     this.schedule(function () {

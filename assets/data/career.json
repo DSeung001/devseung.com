@@ -14,13 +14,13 @@
     {
       "type": "narrate",
       "date": "2013",
-      "text": "장충초 컴퓨터실. 타자가 점점 빨라졌다.",
+      "text": "초등학교 컴퓨터실. 한 꼬마가 컴퓨터를 두들긴다.",
       "gains": [{ "skill": "typing", "to": 3 }]
     },
     {
       "type": "choice",
       "date": "2017.03",
-      "text": "고등학교, 어디로 갈까?",
+      "text": "바로 쓸 수 있는 걸 배우고 싶다, 고등학교를 어디로 갈까?",
       "chosen": "special",
       "options": [
         {
@@ -30,7 +30,7 @@
         },
         {
           "id": "special",
-          "label": "특성화고 (디지텍 IoT)",
+          "label": "특성화고",
           "result": "서울디지텍고 IoT학과에 들어갔다."
         }
       ]
@@ -38,7 +38,7 @@
     {
       "type": "choice",
       "date": "2017.09",
-      "text": "방과후, 어디 들어갈까?",
+      "text": "동아리 활동으로 어디에 들어가는 게 재밌을까?",
       "chosen": "smart",
       "options": [
         {
@@ -53,8 +53,8 @@
         },
         {
           "id": "smart",
-          "label": "스마트스페이스",
-          "result": "스마트스페이스 문을 열었다.",
+          "label": "공간 정보 동아리",
+          "result": "공간 정보 동아리 문을 열었다.",
           "gains": [{ "skill": "backend", "to": 2 }]
         }
       ]
@@ -62,32 +62,38 @@
     {
       "type": "narrate",
       "date": "2017",
-      "text": "삼성 주니어 소프트웨어 대회, 준결승까지 올라갔다.",
+      "text": "동아리를 통해 삼성 주니어 소프트웨어 대회에서 준결승까지 올라갔다.",
       "gains": [{ "skill": "backend", "to": 3 }]
     },
     {
       "type": "narrate",
-      "date": "2019.09",
-      "text": "비트리에 입사했다. 이벤트 사이트가 일상이 됐다.",
-      "gains": [{ "skill": "backend", "to": 5 }]
+      "date": "2017.12",
+      "text": "정보처리기능사를 땄다.",
+      "gains": [{ "skill": "cert", "to": 1 }]
     },
     {
-      "type": "choice",
-      "date": "2020.03",
-      "text": "일은 하는데, 공부는?",
-      "chosen": "both",
-      "options": [
-        {
-          "id": "work",
-          "label": "일만 한다",
-          "result": "당분간은 코드만 팠다."
-        },
-        {
-          "id": "both",
-          "label": "일과 학업을 병행한다",
-          "result": "방통대 컴퓨터과학과에 등록했다."
-        }
-      ]
+      "type": "narrate",
+      "date": "2018.05",
+      "text": "도제로 비트리에 나갔다. 웹의 기초를 배웠다.",
+      "gains": [{ "skill": "backend", "to": 4 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2018.06",
+      "text": "웹디자인기능사를 땄다.",
+      "gains": [{ "skill": "cert", "to": 2 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2019.06",
+      "text": "정보처리산업기사를 땄다.",
+      "gains": [{ "skill": "cert", "to": 3 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2019.09",
+      "text": "졸업 전, 비트리에 정규로 입사했다. 웹사이트 개발과 유지보수를 맡았다.",
+      "gains": [{ "skill": "backend", "to": 5 }]
     },
     {
       "type": "narrate",
@@ -95,9 +101,27 @@
       "text": "고등학교를 졸업했다."
     },
     {
+      "type": "choice",
+      "date": "2020.03",
+      "text": "이제 대학교를 갈 수 있다, 어떻게 할까?",
+      "chosen": "both",
+      "options": [
+        {
+          "id": "work",
+          "label": "일만 해도 바쁜데 일만 하자!",
+          "result": "당분간은 코드만 팠다."
+        },
+        {
+          "id": "both",
+          "label": "야간대나 방통대면 충분히 같이 할 수 있을 것 같다.",
+          "result": "방통대 컴퓨터과학과에 들어갔다."
+        }
+      ]
+    },
+    {
       "type": "narrate",
       "date": "2021",
-      "text": "DAU 10만 이벤트. Redis Queue로 추첨을 단단히 묶었다.",
+      "text": "DAU 10만 이벤트를 담당했다. 이벤트에 큐를 도입해 안정성을 높였다.",
       "gains": [
         { "skill": "backend", "to": 6 },
         { "skill": "ops", "to": 4 }
@@ -107,29 +131,35 @@
       "type": "narrate",
       "date": "2022.06",
       "text": "정보처리기사를 땄다.",
-      "gains": [{ "skill": "cert", "to": 3 }]
+      "gains": [{ "skill": "cert", "to": 4 }]
+    },
+    {
+      "type": "narrate",
+      "date": "2023.04",
+      "text": "네트워크관리사 2급을 땄다.",
+      "gains": [{ "skill": "cert", "to": 5 }]
     },
     {
       "type": "narrate",
       "date": "2023.08",
-      "text": "비트리에서의 긴 여정을 마쳤다."
+      "text": "다양한 개발 경험을 해 보기 위해, 비트리에서의 긴 여정을 마쳤다."
     },
     {
       "type": "narrate",
       "date": "2024.01",
-      "text": "에이아이썸. 프록시로 상품 데이터를 모으기 시작했다.",
-      "gains": [{ "skill": "data", "to": 4 }]
+      "text": "에이아이썸에 짧게 합류했다. 프록시로 상품 데이터를 모았다.",
+      "gains": [{ "skill": "data", "to": 2 }]
     },
     {
       "type": "choice",
       "date": "2024.04",
-      "text": "다음 전장은?",
+      "text": "다음엔 어디서 더 성장할까?",
       "chosen": "huvitz",
       "options": [
         {
           "id": "huvitz",
-          "label": "의료 온프레미스",
-          "result": "휴비츠 SE팀, 병원 망 안의 웹을 맡았다.",
+          "label": "중견에서 팀으로 일해 본다",
+          "result": "휴비츠 SE팀에 합류했다. 병원 망 안의 웹을 맡았다.",
           "gains": [
             { "skill": "backend", "to": 7 },
             { "skill": "ops", "to": 5 }
@@ -139,25 +169,20 @@
           "id": "crawl",
           "label": "수집을 더 판다",
           "result": "수집 파이프라인을 더 깊게 팠다."
-        },
-        {
-          "id": "rest",
-          "label": "잠깐 쉰다",
-          "result": "숨을 골랐다."
         }
       ]
     },
     {
       "type": "narrate",
       "date": "2024.06",
-      "text": "SQL 개발자 자격. 데이터도 조금 더 단단해졌다.",
-      "gains": [{ "skill": "cert", "to": 5 }]
+      "text": "SQL 개발자 자격을 땄다.",
+      "gains": [{ "skill": "cert", "to": 6 }]
     },
     {
       "type": "narrate",
       "date": "2025",
       "text": "의료 데이터에 캐시를 얹었다. DB 접근이 100%에서 78%로 줄었다.",
-      "gains": [{ "skill": "data", "to": 5 }]
+      "gains": [{ "skill": "data", "to": 4 }]
     },
     {
       "type": "narrate",
@@ -165,14 +190,24 @@
       "text": "이미지 처리를 병렬로 돌리니 11초가 4초가 됐다.",
       "gains": [
         { "skill": "backend", "to": 8 },
-        { "skill": "data", "to": 6 },
+        { "skill": "data", "to": 5 },
         { "skill": "ops", "to": 6 }
       ]
     },
     {
       "type": "narrate",
+      "date": "2025",
+      "text": "밖에서는 AI 광풍이 분다. AI 시대에 개발자란 뭘까?"
+    },
+    {
+      "type": "narrate",
+      "date": "2026.01",
+      "text": "나는 무슨 개발자가 되고 싶을까. 그 답을 찾기 위해 휴비츠를 떠났다."
+    },
+    {
+      "type": "narrate",
       "date": "2026.05",
-      "text": "동영상 스트리밍 사이트를 만들며, 영상 전송을 다시 배웠다.",
+      "text": "떠난 뒤, 동영상 스트리밍 사이트를 만들며 영상 전송을 다시 배웠다.",
       "gains": [{ "skill": "stream", "to": 5 }]
     }
   ]

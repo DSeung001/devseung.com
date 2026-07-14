@@ -795,6 +795,12 @@ hr {
   margin: 0;
 }
 
+.career-event-sep {
+  border: none;
+  border-top: 1px solid #999;
+  margin: 0.45em 0;
+}
+
 .career-log-current .career-line {
   opacity: 1;
 }
