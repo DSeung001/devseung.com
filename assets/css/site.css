@@ -1,0 +1,231 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+/*
+  Latin: system.css Chicago / Geneva
+  Hangul: NeoDunggeunmo (glyphs missing from Chicago fall through)
+*/
+body,
+.window,
+.window-pane,
+.modeless-dialog,
+.standard-dialog,
+.btn,
+button,
+input,
+textarea,
+select,
+label,
+.dialog-text,
+.modal-text,
+.alert-text,
+.modeless-text,
+.docs-nav a,
+.site-footer {
+  font-family: Chicago, Geneva_9, "NeoDunggeunmo", monospace;
+}
+
+.title,
+.inactive-title-bar .title,
+h1,
+h2,
+h3,
+.heading {
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  line-height: 1.5;
+}
+
+a {
+  color: #000000;
+}
+
+.site-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-menubar {
+  flex-shrink: 0;
+  border-bottom: 1px solid #000;
+}
+
+.site-menubar a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.docs-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 0;
+  min-height: 0;
+}
+
+.docs-sidebar {
+  padding: 1rem 0.75rem;
+  border-right: 1px solid #000;
+  background: #fff;
+}
+
+.docs-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.docs-nav a {
+  display: block;
+  padding: 0.35rem 0.5rem;
+  text-decoration: none;
+  color: #000;
+  border: 1px solid transparent;
+}
+
+.docs-nav a:hover,
+.docs-nav a:focus-visible {
+  border-color: #000;
+  outline: none;
+}
+
+.docs-nav a.is-active {
+  background: #000;
+  color: #fff;
+}
+
+.docs-main {
+  padding: 1rem;
+  overflow: auto;
+}
+
+.panel[hidden] {
+  display: none !important;
+}
+
+.panel .window {
+  width: 100%;
+  max-width: 42rem;
+}
+
+.panel-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.site-window .window-pane,
+.site-window .modeless-dialog {
+  padding: 1rem;
+}
+
+.placeholder-note {
+  margin: 0.75rem 0 0;
+  opacity: 0.75;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+
+.field-row label {
+  min-width: 4rem;
+}
+
+.field-row input,
+.field-row textarea {
+  flex: 1;
+  width: 100%;
+  font-family: inherit;
+}
+
+.actions-end {
+  justify-content: flex-end;
+}
+
+.site-footer {
+  flex-shrink: 0;
+  border-top: 1px solid #000;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.site-footer a {
+  text-decoration: underline;
+}
+
+.legal-page {
+  max-width: 42rem;
+  margin: 1.5rem auto;
+  padding: 0 1rem 2rem;
+}
+
+.legal-page .window {
+  width: 100%;
+}
+
+.legal-page .window-pane {
+  padding: 1rem;
+}
+
+.legal-page h2 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+.legal-page p {
+  margin: 0.35rem 0;
+}
+
+@media (max-width: 720px) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .docs-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #000;
+    padding: 0.75rem;
+  }
+
+  .docs-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

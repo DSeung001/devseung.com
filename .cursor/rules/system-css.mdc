@@ -1,0 +1,39 @@
+---
+description: DevSeung System.css + Neo둥근모 디자인 가이드
+alwaysApply: true
+---
+
+# DevSeung UI 디자인 가이드
+
+## 스택
+
+- UI 라이브러리: `@sakun/system.css` (CDN 또는 동일 CSS)
+- 폰트 스택: **영문 Chicago / Geneva_9 / Chicago_12**, 한글 폴백 **`NeoDunggeunmo`**
+  - 모던 본문 폰트(Inter, Noto, system-ui 등) 금지
+  - 전역을 Neo둥근모만으로 덮어쓰지 말 것 (영문 Mac 톤이 깨짐)
+- 언어: 한국어만
+- 레이아웃: 단일 `index.html` + 해시(`#intro` / `#sites` / `#inquiry`) → 좌측 내비, 우측 패널 하나만 표시
+
+## 컴포넌트
+
+다음 system.css 패턴을 우선 사용한다.
+
+- `.window`, `.title-bar`, `.title`, `.close`, `.resize`, `.separator`
+- `.window-pane`, `.modeless-dialog`, `.standard-dialog`, `.modal-dialog`
+- `.btn`, `.btn-default`, `.field-row`
+- `ul[role="menu-bar"]` / `li[role="menu-item"]`
+
+커스텀 CSS(`assets/css/site.css`)는 **레이아웃·폰트 덮어쓰기·간격**만 담당한다.
+
+## 금지에 가까운 것
+
+- 모던 카드 UI(그림자·둥근 모서리·그라데이션·글래스모피즘)
+- 보라/인디고 테마, 글로우, pill 배지 클러스터
+- system.css 밖의 UI 키트(Tailwind UI 컴포넌트 등) 도입
+- 다국어 i18n 재도입(요청 전까지)
+
+## 콘텐츠 추가 시
+
+- Sites: `.window.site-window` 템플릿(제목 바 + 짧은 설명 + `서비스 방문` 버튼)을 복제
+- 새 해시 섹션이 필요하면 `data-panel` / `data-nav` / `app.js`의 `VALID` 배열을 함께 갱신
+- 라이선스·출처 변경 시 `CREDITS.md`를 갱신
