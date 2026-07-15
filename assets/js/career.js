@@ -61,12 +61,16 @@
     this.endModal = root.querySelector("[data-career-end-modal]");
     this.endCloseBtn = root.querySelector("[data-career-end-close]");
     this.endSkillsEl = root.querySelector("[data-career-end-skills]");
+    this.taskbar = root.querySelector("[data-career-taskbar]");
+    this.taskbarStatusBtn = root.querySelector("[data-career-taskbar-status]");
+    this.taskbarClock = root.querySelector("[data-career-taskbar-clock]");
     this.docsScroll = document.querySelector(".docs-scroll");
 
     this.state = "idle";
     this.index = 0;
     this.levels = {};
     this.timer = null;
+    this.clockTimer = null;
     this.skipping = false;
     this.scrollAnim = null;
 
@@ -82,6 +86,15 @@
     if (this.endCloseBtn) {
       this.endCloseBtn.addEventListener("click", function () {
         self.hideEndModal();
+      });
+    }
+    if (this.taskbarStatusBtn) {
+      this.taskbarStatusBtn.addEventListener("click", function () {
+        if (self.endModal && !self.endModal.hidden) {
+          self.hideEndModal();
+        } else {
+          self.showEndModal();
+        }
       });
     }
   }
@@ -217,11 +230,69 @@
     this.statusEl.classList.remove("is-final");
   };
 
+  CareerPlayer.prototype.setTaskbarStatusOpen = function (open) {
+    if (!this.taskbarStatusBtn) return;
+    if (open) {
+      this.taskbarStatusBtn.classList.add("is-open");
+      this.taskbarStatusBtn.setAttribute("aria-pressed", "true");
+    } else {
+      this.taskbarStatusBtn.classList.remove("is-open");
+      this.taskbarStatusBtn.setAttribute("aria-pressed", "false");
+    }
+  };
+
+  CareerPlayer.prototype.formatTaskbarClock = function () {
+    try {
+      return new Date().toLocaleTimeString(undefined, {
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    } catch (err) {
+      return "3:00 PM";
+    }
+  };
+
+  CareerPlayer.prototype.updateTaskbarClock = function () {
+    if (!this.taskbarClock) return;
+    this.taskbarClock.textContent = this.formatTaskbarClock();
+  };
+
+  CareerPlayer.prototype.startTaskbarClock = function () {
+    var self = this;
+    this.stopTaskbarClock();
+    this.updateTaskbarClock();
+    this.clockTimer = setInterval(function () {
+      self.updateTaskbarClock();
+    }, 1000);
+  };
+
+  CareerPlayer.prototype.stopTaskbarClock = function () {
+    if (this.clockTimer !== null) {
+      clearInterval(this.clockTimer);
+      this.clockTimer = null;
+    }
+  };
+
+  CareerPlayer.prototype.showTaskbar = function () {
+    if (!this.taskbar) return;
+    this.taskbar.hidden = false;
+    this.taskbar.setAttribute("aria-hidden", "false");
+    this.startTaskbarClock();
+  };
+
+  CareerPlayer.prototype.hideTaskbar = function () {
+    if (!this.taskbar) return;
+    this.stopTaskbarClock();
+    this.taskbar.hidden = true;
+    this.taskbar.setAttribute("aria-hidden", "true");
+    this.setTaskbarStatusOpen(false);
+  };
+
   CareerPlayer.prototype.hideEndModal = function () {
     if (!this.endModal) return;
     this.endModal.hidden = true;
     this.endModal.setAttribute("aria-hidden", "true");
-    if (this.endSkillsEl) this.endSkillsEl.innerHTML = "";
+    this.setTaskbarStatusOpen(false);
   };
 
   CareerPlayer.prototype.showEndModal = function () {
@@ -250,6 +321,7 @@
     this.endSkillsEl.innerHTML = html;
     this.endModal.hidden = false;
     this.endModal.setAttribute("aria-hidden", "false");
+    this.setTaskbarStatusOpen(true);
   };
 
   CareerPlayer.prototype.clearLog = function () {
@@ -415,6 +487,7 @@
     this.hideChoice();
     this.hideBoot();
     this.hideEndModal();
+    this.hideTaskbar();
     this.setStatusHeading();
     this.renderStatus();
     this.playBtn.hidden = false;
@@ -438,6 +511,7 @@
     this.clearLog();
     this.hideChoice();
     this.hideEndModal();
+    this.hideTaskbar();
     this.setStatusHeading();
     this.renderStatus();
     this.playBtn.hidden = true;
@@ -466,6 +540,7 @@
     if (this.logScroll) {
       this.logScroll.scrollTop = this.logScroll.scrollHeight;
     }
+    this.showTaskbar();
     this.showEndModal();
   };
 

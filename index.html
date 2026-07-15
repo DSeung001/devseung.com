@@ -147,7 +147,7 @@
                             type="button"
                             class="close career-end-close"
                             data-career-end-close
-                            aria-label="닫기"
+                            aria-label="내리기"
                           ></button>
                           <p
                             class="career-end-dialog-title"
@@ -178,6 +178,38 @@
                             사이트 보러 가기
                           </a>
                         </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="career-taskbar"
+                      data-career-taskbar
+                      hidden
+                      aria-hidden="true"
+                    >
+                      <button
+                        type="button"
+                        class="career-taskbar-start"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        시작
+                      </button>
+                      <button
+                        type="button"
+                        class="career-taskbar-item"
+                        data-career-taskbar-status
+                        aria-label="STATUS 창 열기"
+                        aria-pressed="false"
+                      >
+                        STATUS
+                      </button>
+                      <div class="career-taskbar-tray" aria-hidden="true">
+                        <span
+                          class="career-taskbar-clock"
+                          data-career-taskbar-clock
+                          >3:00 PM</span
+                        >
                       </div>
                     </div>
                   </div>

@@ -520,7 +520,8 @@ hr {
 .career-boot[hidden],
 .career-choice[hidden],
 .career-log-split[hidden],
-.career-end-modal[hidden] {
+.career-end-modal[hidden],
+.career-taskbar[hidden] {
   display: none !important;
 }
 
@@ -581,6 +582,10 @@ hr {
 .career-stage.is-playing,
 .career-stage.is-done {
   background: #f4f4f4;
+}
+
+.career-stage.is-done {
+  padding-bottom: 2.1rem;
 }
 
 .career-stage.is-booting {
@@ -904,6 +909,7 @@ hr {
   justify-content: flex-start;
   align-items: center;
   gap: 0.4rem;
+  padding: 0.1em 0.25em;
   font-size: 1em;
   line-height: 1.4;
 }
@@ -917,7 +923,6 @@ hr {
 .career-choice-row.is-chosen {
   background: #000;
   color: #fff;
-  padding: 0.1em 0.25em;
 }
 
 .career-choice-row.is-chosen label {
@@ -927,7 +932,10 @@ hr {
 /* STATUS end dialog (custom, not system.css window) */
 .career-end-modal {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 1.75rem;
+  left: 0;
   z-index: 7;
   display: flex;
   align-items: center;
@@ -935,6 +943,86 @@ hr {
   padding: 0.75rem;
   background: rgba(0, 0, 0, 0.45);
   box-sizing: border-box;
+}
+
+/* Win95-like taskbar (CRT monochrome) */
+.career-taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 1.75rem;
+  padding: 0.15rem 0.25rem;
+  box-sizing: border-box;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  box-shadow: inset 0 1px 0 #dfdfdf;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  font-size: 0.9em;
+  line-height: 1.1;
+}
+
+.career-taskbar-start,
+.career-taskbar-item {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.35rem;
+  margin: 0;
+  padding: 0 0.45rem;
+  border: 2px solid;
+  border-color: #fff #000 #000 #fff;
+  background: #c0c0c0;
+  color: #000;
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  font-size: 0.9em;
+  line-height: 1;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.career-taskbar-start {
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.career-taskbar-item {
+  min-width: 5.5rem;
+  max-width: 8rem;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.career-taskbar-item.is-open,
+.career-taskbar-item[aria-pressed="true"] {
+  border-color: #000 #fff #fff #000;
+  background: #bdbdbd;
+  box-shadow: inset 1px 1px 0 #808080;
+}
+
+.career-taskbar-tray {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  height: 1.35rem;
+  padding: 0 0.4rem;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #c0c0c0;
+  box-sizing: border-box;
+}
+
+.career-taskbar-clock {
+  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
+  font-size: 0.85em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .career-end-dialog {
