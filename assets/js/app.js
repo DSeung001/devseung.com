@@ -6,6 +6,8 @@
     "https://github.com/DSeung001/devseung.com/issues/new";
   var SUBJECT = "Inquiry from devseung.com";
 
+  var closeSiteModal = function () {};
+
   function currentHash() {
     var raw = (location.hash || "").replace(/^#/, "").toLowerCase();
     return VALID.indexOf(raw) !== -1 ? raw : DEFAULT;
@@ -44,6 +46,8 @@
         sites: "Sites | DevSeung",
         inquiry: "Inquiry | DevSeung",
       }[id] || "DevSeung";
+
+    closeSiteModal();
   }
 
   function syncFromHash() {
@@ -117,7 +121,75 @@
     }
   }
 
+  function bindSiteModal() {
+    var modal = document.querySelector("[data-site-modal]");
+    if (!modal) return;
+
+    var titleEl = document.getElementById("site-modal-title");
+    var bodyEl = modal.querySelector("[data-site-modal-body]");
+    var windowEl = modal.querySelector(".site-modal-window");
+
+    function closeModal() {
+      if (modal.hasAttribute("hidden")) return;
+      modal.setAttribute("hidden", "");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("site-modal-open");
+      if (titleEl) titleEl.textContent = "";
+      if (bodyEl) bodyEl.innerHTML = "";
+    }
+
+    closeSiteModal = closeModal;
+
+    function openModal(trigger) {
+      var id = trigger.getAttribute("data-site-open");
+      var source = document.getElementById("site-desc-" + id);
+      if (!source || !bodyEl || !titleEl) return;
+
+      var card = trigger.closest(".site-window");
+      var titleNode = card ? card.querySelector(".title-bar .title") : null;
+      titleEl.textContent = titleNode ? titleNode.textContent.trim() : "";
+      bodyEl.innerHTML = source.innerHTML;
+
+      modal.removeAttribute("hidden");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("site-modal-open");
+
+      var closeBtn = modal.querySelector("[data-site-modal-close]");
+      if (closeBtn) closeBtn.focus();
+    }
+
+    var openers = document.querySelectorAll("[data-site-open]");
+    for (var i = 0; i < openers.length; i++) {
+      openers[i].addEventListener("click", function (event) {
+        openModal(event.currentTarget);
+      });
+    }
+
+    var closers = modal.querySelectorAll("[data-site-modal-close]");
+    for (var j = 0; j < closers.length; j++) {
+      closers[j].addEventListener("click", function (event) {
+        event.stopPropagation();
+        closeModal();
+      });
+    }
+
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) closeModal();
+    });
+
+    if (windowEl) {
+      windowEl.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    }
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeModal();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    bindSiteModal();
     syncFromHash();
     bindInquiry();
   });

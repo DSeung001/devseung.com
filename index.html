@@ -217,8 +217,23 @@
                       <p class="placeholder-note">
                         작업기간 2018.05–2026.01 / 6y8m
                       </p>
-                      <details class="site-details">
-                        <summary>간단 설명</summary>
+                      <section class="field-row actions-end">
+                        <button
+                          type="button"
+                          class="btn"
+                          data-site-open="company"
+                        >
+                          설명 보기
+                        </button>
+                        <a
+                          class="btn"
+                          href="https://docs.google.com/presentation/d/19SqbwXCLMbIYDH1Hgo-iASpL1qW6bTaYodKPFHV8hqg/edit"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >PPT 자료</a
+                        >
+                      </section>
+                      <div id="site-desc-company" class="site-desc" hidden>
                         <p>
                           - Healthcare On-Premise — 병원 사설망 온프레미스 웹
                           서비스에서 의료기기 데이터·이미지 수집·저장·연동과 처리
@@ -233,16 +248,7 @@
                           - Event &amp; Corporate Web — DAU 10만 규모 이벤트와 기업
                           웹 서비스의 개발·배포·운영·유지보수를 맡았습니다.
                         </p>
-                      </details>
-                      <section class="field-row actions-end">
-                        <a
-                          class="btn"
-                          href="https://docs.google.com/presentation/d/19SqbwXCLMbIYDH1Hgo-iASpL1qW6bTaYodKPFHV8hqg/edit"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >PPT 자료</a
-                        >
-                      </section>
+                      </div>
                     </div>
                   </div>
 
@@ -267,16 +273,14 @@
                         부트캠프 수강생들을 위한 영상 스트리밍 서비스
                       </p>
                       <p class="placeholder-note">작업기간 2026.05–07 / 2m</p>
-                      <details class="site-details">
-                        <summary>간단 설명</summary>
-                        <p>
-                          커리큘럼 단위로 온라인 강의를 만들고 듣는 플랫폼입니다.
-                          선생님은 영상 업로드·HLS 인코딩·유튜브 임베드로 강좌를
-                          게시하고, 학습자는 시청·이어보기와 Q&amp;A를 이용할 수
-                          있습니다.
-                        </p>
-                      </details>
                       <section class="field-row actions-end">
+                        <button
+                          type="button"
+                          class="btn"
+                          data-site-open="class"
+                        >
+                          설명 보기
+                        </button>
                         <a
                           class="btn"
                           href="https://class.devseung.com"
@@ -285,6 +289,14 @@
                           >서비스 방문</a
                         >
                       </section>
+                      <div id="site-desc-class" class="site-desc" hidden>
+                        <p>
+                          커리큘럼 단위로 온라인 강의를 만들고 듣는 플랫폼입니다.
+                          선생님은 영상 업로드·HLS 인코딩·유튜브 임베드로 강좌를
+                          게시하고, 학습자는 시청·이어보기와 Q&amp;A를 이용할 수
+                          있습니다.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
@@ -309,16 +321,14 @@
                         재밌는 데이트 초대장 보내기
                       </p>
                       <p class="placeholder-note">작업기간 2026.07 / 4days</p>
-                      <details class="site-details">
-                        <summary>간단 설명</summary>
-                        <p>
-                          가입 없이 브라우저에서 데이트 초대장을 만들어 링크
-                          하나로 공유하는 서비스입니다. 문구·대표 이미지·가능
-                          일정·음식 선택지를 직접 꾸민 뒤 보내면, 상대가
-                          단계별로 응답하고 선택 결과를 다시 전달할 수 있습니다.
-                        </p>
-                      </details>
                       <section class="field-row actions-end">
+                        <button
+                          type="button"
+                          class="btn"
+                          data-site-open="date"
+                        >
+                          설명 보기
+                        </button>
                         <a
                           class="btn"
                           href="https://date-invite.devseung.com"
@@ -327,6 +337,14 @@
                           >서비스 방문</a
                         >
                       </section>
+                      <div id="site-desc-date" class="site-desc" hidden>
+                        <p>
+                          가입 없이 브라우저에서 데이트 초대장을 만들어 링크
+                          하나로 공유하는 서비스입니다. 문구·대표 이미지·가능
+                          일정·음식 선택지를 직접 꾸민 뒤 보내면, 상대가
+                          단계별로 응답하고 선택 결과를 다시 전달할 수 있습니다.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -427,6 +445,33 @@
             </footer>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="site-modal" data-site-modal hidden aria-hidden="true">
+      <div
+        class="window site-modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="site-modal-title"
+      >
+        <div class="title-bar">
+          <button
+            aria-label="Resize"
+            disabled
+            class="hidden"
+            type="button"
+          ></button>
+          <h1 class="title" id="site-modal-title"></h1>
+          <button
+            type="button"
+            class="close"
+            data-site-modal-close
+            aria-label="닫기"
+          ></button>
+        </div>
+        <div class="separator"></div>
+        <div class="window-pane" data-site-modal-body></div>
       </div>
     </div>
   </body>

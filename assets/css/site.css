@@ -245,15 +245,19 @@ aside.window.sidebar .window-pane {
   max-width: none !important;
 }
 
-/* Hide non-functional title-bar chrome (looks like stray checkboxes) */
-.title-bar button.close,
+/* Hide non-functional title-bar chrome (looks like stray checkboxes).
+   Site modal keeps a working close control. */
+.site-window .title-bar button.close,
+.sidebar .title-bar button.close,
 .title-bar button.resize,
 .title-bar button.hidden {
   display: none !important;
 }
 
-.title-bar button.close::before,
-.title-bar button.close::after,
+.site-window .title-bar button.close::before,
+.site-window .title-bar button.close::after,
+.sidebar .title-bar button.close::before,
+.sidebar .title-bar button.close::after,
 .title-bar button.resize::before,
 .title-bar button.resize::after,
 a.btn::before,
@@ -291,47 +295,80 @@ button.btn:focus {
   font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
 }
 
-/* —— Sites details toggle —— */
-.site-details {
-  margin: 0.5em 0 0.75em;
-  font-size: 1em;
-  font-family: Chicago, "NeoDunggeunmo", monospace;
-}
-
-.site-details summary {
-  cursor: pointer;
-  list-style: none;
-  font-family: Chicago_12, Chicago, "NeoDunggeunmo", monospace;
-  font-size: 1em;
-  line-height: 1.3;
-  user-select: none;
-}
-
-.site-details summary::-webkit-details-marker {
-  display: none;
-}
-
-.site-details summary::before {
-  content: "▶ ";
-  font-size: 0.85em;
-}
-
-.site-details[open] summary::before {
-  content: "▼ ";
-}
-
-.site-details .placeholder-note {
-  margin: 0.5em 0 0;
-  padding-left: 0.25em;
-}
-
 .site-window .modeless-dialog {
   font-size: 1em;
   padding: 1rem 1.25rem;
 }
 
+/* —— Sites description modal (system.css window + dim) —— */
+.site-modal[hidden] {
+  display: none !important;
+}
+
+.site-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+}
+
+.site-modal-window {
+  width: min(28rem, 100%);
+  max-height: min(70vh, 32rem);
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Keep Mac title-bar balance: invisible spacer left, close right */
+.site-modal .title-bar button.hidden {
+  display: block !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.site-modal .title-bar button.close {
+  display: block !important;
+  cursor: pointer;
+}
+
+.site-modal-window .window-pane {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+  font-size: 1em;
+  font-family: Chicago, "NeoDunggeunmo", monospace;
+  line-height: 1.4;
+}
+
+.site-modal-window .window-pane p {
+  margin: 0 0 0.75em;
+}
+
+.site-modal-window .window-pane p:last-child {
+  margin-bottom: 0;
+}
+
+body.site-modal-open {
+  overflow: hidden;
+}
+
 .placeholder-note {
   opacity: 0.75;
+}
+
+.site-window .placeholder-note {
+  margin: 0.35em 0 0;
+  font-size: 0.8em;
+  line-height: 1.35;
+  opacity: 0.7;
 }
 
 .field-row {
@@ -354,6 +391,20 @@ button.btn:focus {
 
 .actions-end {
   justify-content: flex-end;
+}
+
+.site-window .actions-end {
+  margin: 0.85rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1.5px solid #000;
+}
+
+.site-window .actions-end > .btn {
+  flex: 0 0 8.5rem;
+  width: 8.5rem;
+  min-width: 8.5rem;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 hr {
