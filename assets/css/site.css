@@ -238,6 +238,8 @@ aside.window.sidebar .window-pane {
   margin: 0 !important;
   max-width: 100%;
   min-width: 0 !important;
+  container-type: inline-size;
+  container-name: site-window;
 }
 
 .inquiry-window {
@@ -405,6 +407,27 @@ body.site-modal-open {
   min-width: 8.5rem;
   box-sizing: border-box;
   text-align: center;
+}
+
+@container site-window (max-width: 20rem) {
+  .site-window .actions-end {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: stretch;
+  }
+
+  .site-window .actions-end > .btn {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+  }
+}
+
+@container site-window (max-width: 11rem) {
+  .site-window .actions-end {
+    grid-template-columns: 1fr;
+  }
 }
 
 hr {
