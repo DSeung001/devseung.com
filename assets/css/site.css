@@ -247,6 +247,15 @@ aside.window.sidebar .window-pane {
   max-width: none !important;
 }
 
+/* Title bar stripes: System 6's six lines, drawn at this site's scale
+   (about 1.7x) on whole pixels: 2px lines on a 4px period.
+   system.css sizes them in % of the bar, which lands between pixels
+   here (18px root, border-box) and turns them grey. */
+.title-bar {
+  background: repeating-linear-gradient(#000 0 2px, transparent 2px 4px) 0 50% / 100% 22px no-repeat;
+  background-clip: content-box;
+}
+
 /* Hide non-functional title-bar chrome (looks like stray checkboxes).
    Site modal keeps a working close control. */
 .site-window .title-bar button.close,
